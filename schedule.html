@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Calendar with Appointments</title>
+    <link rel="stylesheet" type="text/CSS" href="schedule.css">
+</head>
+<body>
+
+<header>
+    <h1>Interactive Calendar with Appointments</h1>
+</header>
+
+<main>
+    <table>
+        <thead>
+            <tr>
+                <th>Sun</th>
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Sat</th>
+            </tr>
+        </thead>
+        <tbody id="calendarBody">
+            <!-- Calendar days will be inserted here dynamically -->
+        </tbody>
+    </table>
+</main>
+
+<footer>
+    <p>&copy; 2023 Interactive Calendar with Appointments</p>
+</footer>
+
+<script>
+    // Function to generate calendar days dynamically with appointments
+    function generateCalendar() {
+        const calendarBody = document.getElementById('calendarBody');
+        let dayCount = 1;
+
+        // Mock data with appointments for each day
+        const appointmentsData = {
+            5: ['Dentist Appointment', 'Meeting with John'],
+            10: ['Lunch with Sarah'],
+            15: ['Doctor Checkup', 'Conference Call'],
+            // Add more appointments as needed
+        };
+
+        for (let i = 0; i < 6; i++) {
+            const row = document.createElement('tr');
+
+            for (let j = 0; j < 7; j++) {
+                const cell = document.createElement('td');
+
+                if (dayCount <= 31) {
+                    cell.textContent = dayCount;
+
+                    const dayKey = dayCount;
+                    if (appointmentsData[dayKey]) {
+                        const appointments = appointmentsData[dayKey];
+                        appointments.forEach(appointment => {
+                            const appointmentDiv = document.createElement('div');
+                            appointmentDiv.className = 'appointment';
+                            appointmentDiv.textContent = appointment;
+                            cell.appendChild(appointmentDiv);
+                        });
+                    }
+
+                    cell.addEventListener('click', toggleSelected);
+                    dayCount++;
+                }
+
+                row.appendChild(cell);
+            }
+
+            calendarBody.appendChild(row);
+        }
+    }
+
+    // Function to toggle the "selected" class on click
+    function toggleSelected() {
+        this.classList.toggle('selected');
+    }
+
+    // Call the function to generate the calendar
+    generateCalendar();
+</script>
+
+</body>
+</html>

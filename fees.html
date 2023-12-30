@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/CSS" href="fees.css">
+    <title>John's Salary Calculation</title>
+</head>
+<body>
+
+<header>
+    <h1>Salary Calculation</h1>
+</header>
+
+<main>
+    <form id="salaryForm">
+        <label for="sessions">Number of Sessions Taught:</label>
+        <input type="number" id="sessions" name="sessions" required>
+
+        <label for="hourlyRate">Hourly Rate:</label>
+        <input type="number" id="hourlyRate" name="hourlyRate" required>
+
+        <button type="button" onclick="calculateSalary()">Calculate Salary</button>
+    </form>
+
+    <result id="result"></result>
+</main>
+
+<footer>
+    <p>&copy; 2023 Salary Calculation</p>
+</footer>
+
+<script>
+    function calculateSalary() {
+        const sessions = parseFloat(document.getElementById('sessions').value);
+        const hourlyRate = parseFloat(document.getElementById('hourlyRate').value);
+
+        if (!isNaN(sessions) && !isNaN(hourlyRate)) {
+            const taxRate = 0.15; // Assume a 15% tax rate
+            const grossSalary = sessions * hourlyRate;
+            const taxes = grossSalary * taxRate;
+            const netSalary = grossSalary - taxes;
+
+            document.getElementById('result').innerHTML = `
+                <p><strong>Gross Salary:</strong> $${grossSalary.toFixed(2)}</p>
+                <p><strong>Taxes (15%):</strong> $${taxes.toFixed(2)}</p>
+                <p><strong>Net Salary:</strong> $${netSalary.toFixed(2)}</p>
+            `;
+        } else {
+            alert('Please enter valid numeric values for sessions and hourly rate.');
+        }
+    }
+</script>
+
+</body>
+</html>
